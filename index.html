@@ -15,6 +15,7 @@
       height: 100%;
       width: 100%;
       overflow: hidden;
+      background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
     }
     .slide {
       display: none;
@@ -23,180 +24,123 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      background: linear-gradient(to bottom right, #d3d3d3, #a0c4ff);
-      color: #333;
-      text-align: center;
       padding: 20px;
+      animation: fadeIn 1s ease;
+      text-align: center;
     }
     .slide.active {
       display: flex;
-      animation: fadeIn 1s ease;
     }
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
     h1 {
-      font-size: 3em;
+      font-size: 2.8em;
       margin-bottom: 20px;
+      color: #ffffff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
     }
     p {
       font-size: 1.2em;
       margin-bottom: 30px;
+      color: #f1f1f1;
+      max-width: 600px;
     }
     button {
-      padding: 12px 24px;
+      padding: 12px 30px;
       font-size: 1em;
-      background-color: #4f9deb;
+      background-color: #6a11cb;
+      background-image: linear-gradient(315deg, #6a11cb 0%, #2575fc 74%);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 30px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: transform 0.3s, background 0.3s;
+      margin-top: 15px;
     }
     button:hover {
-      background-color: #3582d3;
+      transform: scale(1.05);
+      background-image: linear-gradient(315deg, #2575fc 0%, #6a11cb 74%);
     }
-
     #letters {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        margin: 20px auto;
-        max-width: 400px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px auto;
+      max-width: 400px;
     }
     .letter {
-        width: 60px;
-        height: 60px;
-        background-color: #87CEFA;
-        color: #fff;
-        font-size: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        cursor: pointer;
-        user-select: none;
-        transition: background-color 0.3s, transform 0.2s;
+      width: 60px;
+      height: 60px;
+      background-color: #ffffff;
+      color: #6a11cb;
+      font-size: 28px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0px 4px 6px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
     }
     .letter:hover {
-        background-color: #4682B4;
-        transform: scale(1.1);
+      transform: scale(1.1);
+      background-color: #e0c3fc;
     }
     #display {
-        width: 80%;
-        max-width: 400px;
-        height: 50px;
-        margin: 20px auto;
-        border: 2px solid #333;
-        font-size: 24px;
-        line-height: 50px;
-        background-color: #fff;
-        border-radius: 8px;
-        overflow-x: auto;
+      width: 80%;
+      max-width: 400px;
+      height: 50px;
+      margin: 20px auto;
+      border: 2px solid #fff;
+      background-color: #ffffffcc;
+      font-size: 24px;
+      line-height: 50px;
+      color: #6a11cb;
+      border-radius: 12px;
+      overflow-x: auto;
+      padding: 0 10px;
     }
-    /* Tombol untuk Slide 3 */
     #enterBtn, #deleteBtn {
-        padding: 10px 20px;
-        font-size: 18px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-top: 20px;
+      width: 150px;
     }
-    #enterBtn {
-        background-color: #4CAF50;
-        color: white;
-    }
-    #enterBtn:hover {
-        background-color: #45a049;
-    }
-    #deleteBtn {
-        background-color: #FF6347;
-        color: white;
-    }
-    #deleteBtn:hover {
-        background-color: #e55347;
-    }
-
     #slide5 {
-  position: fixed;
-  height: 100%; /* bukan height 100%, tapi min-height */
-  overflow-y: hidden;
-  padding-top: 240px; /* kasih jarak dari atas */
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 200px;
-  background: linear-gradient(to bottom right, #d3d3d3, #a0c4ff); /* biar warnanya tetap seragam */
-  box-sizing: border-box;
-}
-
-#textBox {
-  width: 80%;
-  max-width: 600px; /* Atur sesuai keinginan */
-  margin: 20px;
-  padding: 80px;
-  border: 2px solid #333;
-  font-size: 1em;
-  line-height: 1.6em;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow-y: auto; /* Agar teks bisa scroll vertikal jika panjang */
-  box-sizing: border-box;
-}
-
-#userMessageBox {
-  text-align: center;
-}
-
-#userMessage {
-  width: 80%;
-  max-width: 600px; /* Atur sesuai keinginan */
-  margin: 20px;
-  padding: 80px;
-  border: 2px solid #333;
-  font-size: 1em;
-  line-height: 1.6em;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow-y: auto; /* Agar teks bisa scroll vertikal jika panjang */
-  box-sizing: border-box;
-
-}
-
-#userMessageDisplay {
-  width: 80%;
-  max-width: 600px; /* Atur sesuai keinginan */
-  margin: 20px;
-  padding: 80px;
-  border: 2px solid #333;
-  font-size: 1em;
-  line-height: 1.6em;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow-y: auto; /* Agar teks bisa scroll vertikal jika panjang */
-  box-sizing: border-box;
-}
-
-/* Popup */
-.popup {
+      position: fixed;
+      height: 100%;
+      background: linear-gradient(to bottom right, #e0c3fc, #8ec5fc);
+      overflow-y: hidden;
+      padding: 180px 20px 100px 20px;
+    }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .popup {
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  max-height: 80%;
   padding: 20px;
   background: rgb(98, 174, 224);
   border: 2px solid #333;
   border-radius: 10px;
-  max-width: 80%;
-  max-height: 80%;
-  overflow-y: auto;
+  overflow-y: auto; /* <-- Ini bagian penting biar bisa scroll */
+  box-sizing: border-box;
 }
+
 .popup.active {
   display: block;
 }
+
 .popup-close {
   background-color: #FF6347;
   color: white;
@@ -207,67 +151,39 @@
   margin-top: 20px;
 }
 
-.button-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px; /* Jarak antar tombol */
-}
-
-
-
-/* Media Queries untuk perangkat kecil (smartphone) */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 1.8em;
+    #userMessage {
+      width: 80%;
+      max-width: 600px;
+      height: 200px;
+      padding: 20px;
+      border-radius: 20px;
+      font-size: 1em;
+      background: #ffffffcc;
+      border: 2px solid #fff;
+      resize: none;
+      margin-top: 20px;
     }
-    
-    p {
-        font-size: 1.1em;
-    }
-
-    #letters .letter {
+    @media (max-width: 768px) {
+      h1 {font-size: 2em;}
+      p {font-size: 1em;}
+      .letter {
         width: 50px;
         height: 50px;
         font-size: 22px;
+      }
+      #userMessage {
+        padding: 15px;
+      }
     }
-
-    #textBox, #userMessageBox {
-        padding: 40px;
-    }
-
-    button {
-        padding: 10px 20px;
-        font-size: 0.9em;
-    }
-}
-
-/* Media Queries untuk perangkat yang lebih kecil seperti ponsel */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.5em;
-    }
-    
-    p {
-        font-size: 1em;
-    }
-
-    #letters .letter {
+    @media (max-width: 480px) {
+      h1 {font-size: 1.8em;}
+      p {font-size: 0.95em;}
+      .letter {
         width: 45px;
         height: 45px;
         font-size: 20px;
+      }
     }
-
-    #textBox, #userMessageBox {
-        padding: 30px;
-    }
-
-    button {
-        padding: 8px 16px;
-        font-size: 0.8em;
-    }
-}
-
   </style>
 </head>
 <body>
