@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ucapan Ulang Tahun</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body, html {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      height: 100%;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: linear-gradient(to bottom right, #d3d3d3, #a0c4ff);
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+    .slide.active {
+      display: flex;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 1em;
+      background-color: #4f9deb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #3582d3;
+    }
+
+    #letters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin: 20px auto;
+        max-width: 400px;
+    }
+    .letter {
+        width: 60px;
+        height: 60px;
+        background-color: #87CEFA;
+        color: #fff;
+        font-size: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+    .letter:hover {
+        background-color: #4682B4;
+        transform: scale(1.1);
+    }
+    #display {
+        width: 80%;
+        max-width: 400px;
+        height: 50px;
+        margin: 20px auto;
+        border: 2px solid #333;
+        font-size: 24px;
+        line-height: 50px;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow-x: auto;
+    }
+    /* Tombol untuk Slide 3 */
+    #enterBtn, #deleteBtn {
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    #enterBtn {
+        background-color: #4CAF50;
+        color: white;
+    }
+    #enterBtn:hover {
+        background-color: #45a049;
+    }
+    #deleteBtn {
+        background-color: #FF6347;
+        color: white;
+    }
+    #deleteBtn:hover {
+        background-color: #e55347;
+    }
+
+    #slide5 {
+  position: fixed;
+  height: 100%; /* bukan height 100%, tapi min-height */
+  overflow-y: hidden;
+  padding-top: 240px; /* kasih jarak dari atas */
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 200px;
+  background: linear-gradient(to bottom right, #d3d3d3, #a0c4ff); /* biar warnanya tetap seragam */
+  box-sizing: border-box;
+}
+
+#textBox {
+  width: 80%;
+  max-width: 600px; /* Atur sesuai keinginan */
+  margin: 20px;
+  padding: 80px;
+  border: 2px solid #333;
+  font-size: 1em;
+  line-height: 1.6em;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow-y: auto; /* Agar teks bisa scroll vertikal jika panjang */
+  box-sizing: border-box;
+}
+
+#userMessageBox {
+  text-align: center;
+}
+
+#userMessage {
+  width: 80%;
+  max-width: 600px; /* Atur sesuai keinginan */
+  margin: 20px;
+  padding: 80px;
+  border: 2px solid #333;
+  font-size: 1em;
+  line-height: 1.6em;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow-y: auto; /* Agar teks bisa scroll vertikal jika panjang */
+  box-sizing: border-box;
+
+}
+
+#userMessageDisplay {
+  width: 80%;
+  max-width: 600px; /* Atur sesuai keinginan */
+  margin: 20px;
+  padding: 80px;
+  border: 2px solid #333;
+  font-size: 1em;
+  line-height: 1.6em;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow-y: auto; /* Agar teks bisa scroll vertikal jika panjang */
+  box-sizing: border-box;
+}
+
+/* Popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: rgb(98, 174, 224);
+  border: 2px solid #333;
+  border-radius: 10px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+.popup.active {
+  display: block;
+}
+.popup-close {
+  background-color: #FF6347;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Jarak antar tombol */
+}
+
+
+
+/* Media Queries untuk perangkat kecil (smartphone) */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    p {
+        font-size: 1.1em;
+    }
+
+    #letters .letter {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+
+    #textBox, #userMessageBox {
+        padding: 40px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+}
+
+/* Media Queries untuk perangkat yang lebih kecil seperti ponsel */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+    
+    p {
+        font-size: 1em;
+    }
+
+    #letters .letter {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    #textBox, #userMessageBox {
+        padding: 30px;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 0.8em;
+    }
+}
+
+  </style>
+</head>
+<body>
+
+<!--slide 1-->
+<div class="slide active" id="slide1">
+  <h1>HAI</h1>
+  <p>Selamat datang<br>Aku ada sesuatu buat kamu nih.</p>
+  <button onclick="nextSlide()">Lanjut</button>
+</div>
+
+<!--slide 2-->
+<div class="slide" id="slide2">
+    <h1>TERIMA KASIH<br>SUDAH MELUANGKAN<br>WAKTUNYA</h1>
+    <p>Tapi sebelum ke menu utama<br>Aku ada tugas buat kamu nih.</p>
+    <button onclick="nextSlide2()">Lanjut</button>
+</div>
+
+
+<!-- Slide 3 -->
+<!-- Slide 3 -->
+<div class="slide" id="slide3">
+    <h1>Rangkai Kata</h1>
+    <p>Rangkai kata yang benar yaa:</p>
+    <div id="display"></div>
+
+    <div id="letters">
+        <div class="letter">a</div>
+        <div class="letter">s</div>
+        <div class="letter">g</div>
+        <div class="letter">f</div>
+        <div class="letter">r</div>
+        <div class="letter">w</div>
+        <div class="letter">i</div>
+        <div class="letter">n</div>
+        <div class="letter">y</div>
+        <div class="letter">e</div>
+        <div class="letter">m</div>
+        <div class="letter">c</div>
+        <div class="letter">k</div>
+        <div class="letter">d</div>
+        <div class="letter">b</div>
+    </div>
+
+    <div>
+        <button id="enterBtn">Enter</button>
+        <button id="deleteBtn">Delete</button>
+    </div>
+</div>
+
+
+
+  
+
+<!--slide 4-->
+<div class="slide" id="slide4">
+    <h1>Halo Sayang</h1>
+    <p>hehehe<br>Malam Malam latihan kayang<br>Senyum dong Sayang</p>
+    <button onclick="nextSlide4()">Lanjut</button>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide" id="slide5">
+  <h1 style="margin-bottom: 50px;">Happy Birthday<br>ARISKA SUKMA ROMADHANI<br>🎉💖</h1>
+  
+  <div class="button-group">
+    <button onclick="showPopup()">Lihat Pesan</button>
+    <button onclick="nextSlide5()">Lanjut</button>
+  </div>
+</div>
+
+
+<!-- Popup untuk teks panjang -->
+<div class="popup" id="popup">
+  <p>Meskipun kita nggak bisa ketemu langsung hari ini, aku tetap pengen kamu tahu kalau aku sangat bersyukur banget kenal kamu. 😄</p><br>
+
+  <p>Kamu tuh kayak obat terbaik di hidupku. Kalau lagi capek atau stress, cuma ngomong sama kamu aja udah bikin aku ngerasa lebih baik. Kamu itu bukan cuma perawat, tapi juga penyembuh hati yang jago banget, kayak aplikasi canggih yang bisa ngedeteksi masalah dan langsung kasih solusi, cuma lewat chat doang. 😜</p><br>
+  
+  <p>Semoga NextTime kita bisa merayakan ulang tahun bareng, tapi buat sekarang, aku harap hari ini jadi hari yang penuh kebahagiaan buat kamu. Semoga kuliahmu lancar, dan kamu tetap sehat dan kuat menghadapi semua tantangan yang datang. 💻💕</p><br>
+  
+  <p>Selamat ulang tahun, sayang! Aku sangat bahagia kenal kamu di hidupku. Semangat terus ya kuliahnya, dan kita bakal terus saling dukung meski cuma lewat chat. ❤️</p><br>
+  
+  <p>Love you to the moon and back,🦸‍♀️💖</p>
+  
+  <button class="popup-close" onclick="closePopup()">Tutup Popup</button> <!-- Tombol untuk menutup popup -->
+</div>
+
+
+<!-- Slide 6 -->
+<div class="slide" id="slide6">
+  <h1>🎂</h1>
+  <h1>Happy Birthday!</h1>
+  <div id="userMessageBox">
+    <textarea id="userMessage" placeholder="Tulis pesan dan harapanmu di sini..." rows="4" style="width: 80%; max-width: 600px; height: 200px; padding: 10px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #333; font-size: 1.2em;"></textarea>
+  </div>
+  <button onclick="nextSlide7()">Selesai</button>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide" id="slide7">
+  <h1>HAI<br>
+  HAPPY BIRTHDAY KE 19<br>
+  🎉💖</h1>
+  <p>Maaf ya belum bisa ngucapin dan ngasih hadiah secara langung <br> 
+    aku cuma bisa ngucapin lewat hal kayak gini<br> 
+   (inipun belum sempurna udah mepet banget sih hehe)<br>
+  (aku baru bikin ini tadi siang mana ada urgent,malamnya diajak berantem pula hehe) </p>
+  <button onclick="showUserMessage()">Klik disini lihat pesanmu</button>
+</div>
+
+
+
+<script>
+    //slide 1
+  function nextSlide() {
+    document.getElementById('slide1').classList.remove('active');
+    document.getElementById('slide2').classList.add('active');
+  }
+
+    //slide 2
+  function nextSlide2() {
+    document.getElementById('slide2').classList.remove('active');
+    document.getElementById('slide3').classList.add('active');
+  }
+    //slide 3
+   
+    const display = document.getElementById('display');
+    const letters = document.querySelectorAll('#slide3 .letter');
+    const enterBtn = document.getElementById('enterBtn');
+    const deleteBtn = document.getElementById('deleteBtn');
+    const correctAnswer = "arissayang";  // Jawaban yang benar
+
+    // Menambahkan huruf yang diklik ke dalam tampilan
+    letters.forEach(letter => {
+        letter.addEventListener('click', () => {
+            display.textContent += letter.textContent;
+        });
+    });
+
+    // Tombol Enter untuk memeriksa jawaban
+    enterBtn.addEventListener('click', () => {
+        const userAnswer = display.textContent.toLowerCase().replace(/\s+/g, '');
+        if (userAnswer === correctAnswer) {
+            alert("Benar! Lanjut ke Slide 4");
+            // Sembunyikan Slide 3 dan tampilkan Slide 4
+            document.getElementById('slide3').classList.remove('active');
+            document.getElementById('slide4').classList.add('active');
+        } else {
+            alert("Salah, coba lagi ya!");
+            display.textContent = "";  // Reset tampilan jika salah
+        }
+    });
+
+    // Tombol Delete untuk menghapus huruf terakhir
+    deleteBtn.addEventListener('click', () => {
+        display.textContent = display.textContent.slice(0, -1);
+    });
+ 
+    // slide 4
+function nextSlide4() {
+    document.getElementById('slide4').classList.remove('active'); 
+    document.getElementById('slide5').classList.add('active');
+}
+
+  // slide 5
+  function nextSlide5() {
+    document.getElementById('slide5').classList.remove('active'); 
+    document.getElementById('slide6').classList.add('active');
+}
+
+// Menampilkan popup
+function showPopup() {
+  document.getElementById('popup').classList.add('active');
+}
+
+// Menutup popup
+function closePopup() {
+  document.getElementById('popup').classList.remove('active');
+}
+
+// Fungsi untuk melanjutkan ke slide 6
+function nextSlide5() {
+  document.getElementById('slide5').classList.remove('active');
+  document.getElementById('slide6').classList.add('active');
+}
+
+
+// Slide 6
+function nextSlide6() {
+  document.getElementById('slide6').classList.remove('active');
+  document.getElementById('slide7').classList.add('active');
+}
+
+// Fungsi untuk menampilkan pesan pengguna dalam popup
+function showUserMessage() {
+  const userMessage = document.getElementById('userMessage').value;
+  alert("Pesan kamu: \n" + userMessage);  // Tampilkan popup dengan pesan yang ditulis oleh pengguna
+}
+
+
+function nextSlide7() {
+  document.getElementById('slide6').classList.remove('active');
+  document.getElementById('slide7').classList.add('active');
+}
+
+
+</script>
+
+</body>
+</html>
